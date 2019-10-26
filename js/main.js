@@ -80,9 +80,48 @@ async function SelectionSort() {
         bars[min_index].style =
             "background: rgb(74, 74, 252); height: " + a[min_index] + "vh;";
         bars[j].style = "background: rgb(199, 38, 92); height: " + a[j] + "vh;";
-        // render();
     }
 }
+
+// Bubble Sort
+async function BubbleSort() {
+    const bars = document.querySelectorAll(".bar");
+
+    for (i = 0; i < ARRAY_SIZE - 1; i++) {
+        for (j = 0; j < ARRAY_SIZE - i - 1; j++) {
+            if (a[j] < a[j + 1]) {
+                const temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+                bars[j].style = "background: red; height: " + a[j] + "vh;";
+                bars[j + 1].style =
+                    "background: red; height: " + a[j + 1] + "vh;";
+                await Timer(25);
+                bars[j].style =
+                    "background: rgb(74, 74, 252); height: " + a[j] + "vh;";
+                bars[j + 1].style =
+                    "background: rgb(74, 74, 252); height: " + a[j + 1] + "vh;";
+            } else {
+                bars[j].style = "background: green; height: " + a[j] + "vh;";
+                bars[j + 1].style =
+                    "background: green; height: " + a[j + 1] + "vh;";
+                await Timer(25);
+                bars[j].style =
+                    "background: rgb(74, 74, 252); height: " + a[j] + "vh;";
+                bars[j + 1].style =
+                    "background: rgb(74, 74, 252); height: " + a[j + 1] + "vh;";
+            }
+        }
+        bars[ARRAY_SIZE - i - 1].style =
+            "background: rgb(199, 38, 92); height: " +
+            a[ARRAY_SIZE - i - 1] +
+            "vh;";
+    }
+    bars[0].style = "background: rgb(199, 38, 92); height: " + a[0] + "vh;";
+}
+
+// Merge Sort
+async function MergeSort() {}
 
 // Run the appropriate Function according to the Selected Algorithm
 const Sort = () => {
