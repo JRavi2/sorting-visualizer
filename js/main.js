@@ -214,11 +214,11 @@ async function InsertionSort() {
     Render(PURPLE);
 }
 
-// Quick Sort
+// Quick Sort (Not Working, To be Fixed)
 const partition = async (low, high) => {
     const pivot = a[high];
     i = low - 1;
-    console.log(i);
+
     for (j = 0; j < high; j++) {
         if (a[j] < pivot) {
             i++;
@@ -230,14 +230,14 @@ const partition = async (low, high) => {
     const temp = a[j];
     a[j] = a[i + 1];
     a[i + 1] = temp;
-    console.log(i + 1);
+
     return i + 1;
 };
 
 function QuickSort(low, high) {
     if (low < high) {
         const pi = partition(low, high);
-        console.log(a);
+
         QuickSort(low, pi - 1);
         QuickSort(pi + 1, high);
     }
