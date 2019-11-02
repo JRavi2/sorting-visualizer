@@ -1,4 +1,6 @@
 body {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 0;
 }
@@ -39,6 +41,7 @@ header .options-us:hover {
 }
 
 main {
+    flex-grow: 1;
     text-align: center;
     height: 80vh;
 }
@@ -62,4 +65,10 @@ main #bars-container .bar {
 
 main #bars-container .bar:nth-child(20) {
     height: 10%;
+}
+
+footer {
+    color: #888888;
+    border-top: 1px solid #d8d8d8;
+    margin-bottom: -45rem;
 }
