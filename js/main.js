@@ -1,5 +1,4 @@
 const barsContainer = document.querySelector("#bars-container");
-//const bars = document.querySelectorAll(".bar");
 
 // Controller Buttons
 const randomizeBtn = document.querySelector("#randomize");
@@ -8,7 +7,7 @@ const sortBtn = document.querySelector("#sort");
 // Algorithm Selectors
 const selSortBtn = document.querySelector("#sel-sort");
 const bubbleSortBtn = document.querySelector("#bubble-sort");
-// const mergeSortBtn = document.querySelector("#merge-sort");
+const mergeSortBtn = document.querySelector("#merge-sort");
 const insertSortBtn = document.querySelector("#insert-sort");
 const quickSortBtn = document.querySelector("#quick-sort");
 
@@ -17,7 +16,8 @@ const BLUE = "rgb(74, 74, 252)";
 const PURPLE = "rgb(199, 38, 92)";
 const GREEN = "green";
 const RED = "rgb(243, 59, 59)";
-const ARRAY_SIZE = 20;
+const ALERT_COLOR = "black";
+const ARRAY_SIZE = 50;
 var algo = "select";
 
 // Initialize the array
@@ -27,6 +27,7 @@ for (var a = [], i = 0; i < ARRAY_SIZE; ++i) {
     bar.classList.add("bar");
     barsContainer.appendChild(bar);
 }
+const bars = document.querySelectorAll(".bar");
 
 // Utitlity Timer Function
 const Sleep = ms => {
@@ -37,23 +38,16 @@ const Sleep = ms => {
 const DeselectAll = () => {
     selSortBtn.classList.add("options-us");
     bubbleSortBtn.classList.add("options-us");
-    // mergeSortBtn.classList.add("options-us");
+    mergeSortBtn.classList.add("options-us");
     insertSortBtn.classList.add("options-us");
     quickSortBtn.classList.add("options-us");
 };
 
 // Randomize the array
 const Shuffle = array => {
-    var tmp,
-        current,
-        top = ARRAY_SIZE;
-    if (top)
-        while (--top) {
-            current = Math.floor(Math.random() * (top + 1));
-            tmp = array[current];
-            array[current] = array[top];
-            array[top] = tmp;
-        }
+    for (i = 0; i < ARRAY_SIZE; i++) {
+        array[i] = Math.floor(Math.random() * (ARRAY_SIZE - 1 + 1) + 1);
+    }
     return array;
 };
 
@@ -67,7 +61,6 @@ const Render = color => {
 
 // Selection Sort
 async function SelectionSort() {
-    const bars = document.querySelectorAll(".bar");
     for (j = 0; j < ARRAY_SIZE; j++) {
         var min_index = j;
         for (k = j + 1; k < ARRAY_SIZE; k++)
@@ -90,9 +83,7 @@ async function SelectionSort() {
 }
 
 // Bubble Sort
-async function BubbleSort() {
-    const bars = document.querySelectorAll(".bar");
-
+const BubbleSort = async () => {
     for (i = 0; i < ARRAY_SIZE - 1; i++) {
         for (j = 0; j < ARRAY_SIZE - i - 1; j++) {
             if (a[j] < a[j + 1]) {
@@ -125,74 +116,73 @@ async function BubbleSort() {
         }vh;`;
     }
     bars[0].style = `background: ${PURPLE}; height: ${a[0]}vh;`;
-}
+};
 
 // Merge Sort (Not Working, To be Fixed)
-// function Merge(l, m, r) {
-//     var i, j, k;
-//     var n1 = m - l + 1;
-//     var n2 = r - m;
+function Merge(l, m, r) {
+    var i, j, k;
+    var n1 = m - l + 1;
+    var n2 = r - m;
 
-//     /* create temp arrays */
-//     var L = [],
-//         R = [];
+    /* create temp arrays */
+    var L = [],
+        R = [];
 
-//     /* Copy data to temp arrays L[] and R[] */
-//     for (i = 0; i < n1; i++) L[i] = a[l + i];
-//     for (j = 0; j < n2; j++) R[j] = a[m + 1 + j];
+    /* Copy data to temp arrays L[] and R[] */
+    for (i = 0; i < n1; i++) L[i] = a[l + i];
+    for (j = 0; j < n2; j++) R[j] = a[m + 1 + j];
 
-//     /* Merge the temp arrays back into arr[l..r]*/
-//     i = 0; // Initial index of first subarray
-//     j = 0; // Initial index of second subarray
-//     k = l; // Initial index of merged subarray
-//     while (i < n1 && j < n2) {
-//         if (L[i] <= R[j]) {
-//             a[k] = L[i];
-//             i++;
-//         } else {
-//             a[k] = R[j];
-//             j++;
-//         }
-//         k++;
-//     }
+    /* Merge the temp arrays back into arr[l..r]*/
+    i = 0; // Initial index of first subarray
+    j = 0; // Initial index of second subarray
+    k = l; // Initial index of merged subarray
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            a[k] = L[i];
+            i++;
+        } else {
+            a[k] = R[j];
+            j++;
+        }
+        k++;
+    }
 
-//     /* Copy the remaining elements of L[], if there
-//        are any */
-//     while (i < n1) {
-//         a[k] = L[i];
-//         i++;
-//         k++;
-//     }
+    /* Copy the remaining elements of L[], if there
+       are any */
+    while (i < n1) {
+        a[k] = L[i];
+        i++;
+        k++;
+    }
 
-//     /* Copy the remaining elements of R[], if there
-//        are any */
-//     while (j < n2) {
-//         a[k] = R[j];
-//         j++;
-//         k++;
-//     }
-// }
+    /* Copy the remaining elements of R[], if there
+       are any */
+    while (j < n2) {
+        a[k] = R[j];
+        j++;
+        k++;
+    }
+}
 
-// /* l is for left index and r is right index of the
-//    sub-array of arr to be sorted */
-// function MergeSort(l, r) {
-//     if (l < r) {
-//         // Same as (l+r)/2, but avoids overflow for
-//         // large l and h
-//         var m = l + (r - l) / 2;
+/* l is for left index and r is right index of the
+   sub-array of arr to be sorted */
+function MergeSort(l, r) {
+    if (l < r) {
+        // Same as (l+r)/2, but avoids overflow for
+        // large l and h
+        var m = l + (r - l) / 2;
 
-//         // Sort first and second halves
-//         MergeSort(l, m);
-//         MergeSort(m + 1, r);
+        // Sort first and second halves
+        MergeSort(l, m);
+        MergeSort(m + 1, r);
 
-//         Merge(l, m, r);
-//         console.log(a);
-//     }
-// }
+        Merge(l, m, r);
+        console.log(a);
+    }
+}
 
 // Insertion Sort
 async function InsertionSort() {
-    const bars = document.querySelectorAll(".bar");
     var key;
     for (i = 0; i < ARRAY_SIZE; i++) {
         key = a[i];
@@ -214,18 +204,31 @@ async function InsertionSort() {
     Render(PURPLE);
 }
 
-// Quick Sort (Not Working, To be Fixed)
+// Quick Sort
 const partition = async (low, high) => {
     const pivot = a[high];
     i = low - 1;
+    bars[i + 1].style = `background: ${RED}; height: ${a[i + 1]}vh;`;
 
-    for (j = 0; j < high; j++) {
-        if (a[j] < pivot) {
+    for (j = low; j < high; j++) {
+        bars[j].style = `background: ${RED}; height: ${a[j]}vh;`;
+        await Sleep(100);
+        if (a[j] < pivot && j != i) {
             i++;
+            bars[i].style = `background: ${GREEN}; height: ${a[i]}vh;`;
+            bars[j].style = `background: ${GREEN}; height: ${a[j]}vh;`;
+            await Sleep(300);
             const temp = a[i];
             a[i] = a[j];
             a[j] = temp;
+            bars[i].style = `background: ${GREEN}; height: ${a[i]}vh;`;
+            bars[j].style = `background: ${GREEN}; height: ${a[j]}vh;`;
+            await Sleep(300);
+            bars[i].style = `background: ${BLUE}; height: ${a[i]}vh;`;
+            bars[i + 1].style = `background: ${RED}; height: ${a[i]}vh;`;
+            bars[j].style = `background: ${BLUE}; height: ${a[j]}vh;`;
         }
+        bars[j].style = `background: ${BLUE}; height: ${a[j]}vh;`;
     }
     const temp = a[j];
     a[j] = a[i + 1];
@@ -234,17 +237,30 @@ const partition = async (low, high) => {
     return i + 1;
 };
 
-function QuickSort(low, high) {
+const QuickSort = async (low, high) => {
     if (low < high) {
-        const pi = partition(low, high);
-
-        QuickSort(low, pi - 1);
-        QuickSort(pi + 1, high);
+        for (i = 0; i < 4; i++) {
+            await Sleep(400);
+            bars[
+                low
+            ].style = `background: ${ALERT_COLOR}; height: ${a[low]}vh;`;
+            bars[
+                high
+            ].style = `background: ${ALERT_COLOR}; height: ${a[high]}vh;`;
+            await Sleep(400);
+            bars[low].style = `background: ${BLUE}; height: ${a[low]}vh;`;
+            bars[high].style = `background: ${BLUE}; height: ${a[high]}vh;`;
+        }
+        bars[high].style = `background: ${PURPLE}; height: ${a[high]}vh;`;
+        const pi = await partition(low, high);
+        Render(BLUE);
+        await QuickSort(low, pi - 1);
+        await QuickSort(pi + 1, high);
     }
-}
+};
 
 // Run the appropriate Function according to the Selected Algorithm
-const Sort = () => {
+const Sort = async () => {
     switch (algo) {
         case "select":
             SelectionSort();
@@ -252,16 +268,16 @@ const Sort = () => {
         case "bubble":
             BubbleSort();
             break;
-        // case "merge":
-        //     MergeSort(0, ARRAY_SIZE - 1);
-        //     Render();
-        //     break;
+        case "merge":
+            MergeSort(0, ARRAY_SIZE - 1);
+            Render();
+            break;
         case "insert":
             InsertionSort();
             break;
         case "quick":
-            QuickSort(0, ARRAY_SIZE - 1);
-            Render();
+            await QuickSort(0, ARRAY_SIZE - 1);
+            Render(PURPLE);
             break;
     }
 };
@@ -271,7 +287,7 @@ Render(BLUE);
 
 randomizeBtn.addEventListener("click", e => {
     Shuffle(a);
-    Render();
+    Render(BLUE);
 });
 
 selSortBtn.addEventListener("click", () => {
@@ -286,12 +302,12 @@ bubbleSortBtn.addEventListener("click", () => {
     bubbleSortBtn.classList.remove("options-us");
     bubbleSortBtn.classList.add("options-se");
 });
-// mergeSortBtn.addEventListener("click", () => {
-//     algo = "merge";
-//     DeselectAll();
-//     mergeSortBtn.classList.remove("options-us");
-//     mergeSortBtn.classList.add("options-se");
-// });
+mergeSortBtn.addEventListener("click", () => {
+    algo = "merge";
+    DeselectAll();
+    mergeSortBtn.classList.remove("options-us");
+    mergeSortBtn.classList.add("options-se");
+});
 insertSortBtn.addEventListener("click", () => {
     algo = "insert";
     DeselectAll();
