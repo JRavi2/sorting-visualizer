@@ -9,9 +9,17 @@
     </head>
     <body>
         <header>
-            <span id="randomize" class="button">Randomize/Reset</span>
+            <span
+                id="randomize"
+                class="button"
+                style="border-right: 2.5px #ffffff solid;"
+                >Randomize/Reset</span
+            >
             <span>Array Size: </span>
-            <div class="slidecontainer">
+            <div
+                class="slidecontainer"
+                style="border-right: 2.5px #ffffff solid;"
+            >
                 <input
                     type="range"
                     min="10"
@@ -19,6 +27,20 @@
                     value="50"
                     class="slider"
                     id="size-slider"
+                />
+            </div>
+            <span>Sorting Speed: </span>
+            <div
+                class="slidecontainer"
+                style="border-right: 2.5px #ffffff solid;"
+            >
+                <input
+                    type="range"
+                    min="10"
+                    max="500"
+                    value="410"
+                    class="slider"
+                    id="speed-slider"
                 />
             </div>
             <span id="sel-sort" class="options-us button">Selection Sort</span>
@@ -29,7 +51,12 @@
             <span id="insert-sort" class="options-us button"
                 >Insertion Sort</span
             >
-            <span id="quick-sort" class="options-us button">Quick Sort</span>
+            <span
+                id="quick-sort"
+                class="options-us button"
+                style="border-right: 2.5px #ffffff solid;"
+                >Quick Sort</span
+            >
             <span id="sort" class="button">Sort</span>
         </header>
         <main>

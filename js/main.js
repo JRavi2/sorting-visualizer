@@ -6,6 +6,7 @@ const sortBtn = document.querySelector("#sort");
 
 // Sliders
 const sizeSlider = document.querySelector("#size-slider");
+const speedSlider = document.querySelector("#speed-slider");
 
 // Algorithm Selectors
 const selSortBtn = document.querySelector("#sel-sort");
@@ -85,7 +86,7 @@ const DeselectAll = () => {
 // Randomize the array
 const Shuffle = array => {
     for (i = 0; i < ARRAY_SIZE; i++) {
-        array[i] = Math.floor(Math.random() * (90 - 1 + 1) + 1);
+        array[i] = Math.floor(Math.random() * (84 - 1 + 1) + 1);
     }
     return array;
 };
@@ -94,7 +95,7 @@ const Shuffle = array => {
 const Render = color => {
     const bars = document.querySelectorAll(".bar");
     for (x = 0; x < ARRAY_SIZE; x++) {
-        bars[x].style = `background: ${color};height: ${a[x]}vh;`;
+        bars[x].style = `background: ${color};height: ${a[x]}%;`;
     }
 };
 
@@ -105,10 +106,8 @@ async function SelectionSort() {
         for (k = j + 1; k < ARRAY_SIZE; k++)
             if (a[k] < a[min_index]) min_index = k;
 
-        bars[j].style = `background: ${RED}; height: ${a[j]}vh;`;
-        bars[
-            min_index
-        ].style = `background: ${RED}; height: ${a[min_index]}vh;`;
+        bars[j].style = `background: ${RED}; height: ${a[j]}%;`;
+        bars[min_index].style = `background: ${RED}; height: ${a[min_index]}%;`;
 
         var temp = a[j];
         a[j] = a[min_index];
@@ -116,8 +115,8 @@ async function SelectionSort() {
         await Sleep(speed);
         bars[
             min_index
-        ].style = `background: ${BLUE}; height: ${a[min_index]}vh;`;
-        bars[j].style = `background: ${PURPLE}; height: ${a[j]}vh;`;
+        ].style = `background: ${BLUE}; height: ${a[min_index]}%;`;
+        bars[j].style = `background: ${PURPLE}; height: ${a[j]}%;`;
     }
 }
 
@@ -129,32 +128,30 @@ const BubbleSort = async () => {
                 const temp = a[j];
                 a[j] = a[j + 1];
                 a[j + 1] = temp;
-                bars[j].style = `background: ${RED}; height: ${a[j]}vh;`;
-                bars[j + 1].style = `background: ${RED}; height: ${
-                    a[j + 1]
-                }vh;`;
+                bars[j].style = `background: ${RED}; height: ${a[j]}%;`;
+                bars[j + 1].style = `background: ${RED}; height: ${a[j + 1]}%;`;
                 await Sleep(speed / 4);
-                bars[j].style = `background: ${BLUE}; height: ${a[j]}vh;`;
+                bars[j].style = `background: ${BLUE}; height: ${a[j]}%;`;
                 bars[j + 1].style = `background: ${BLUE}; height: ${
                     a[j + 1]
-                }vh;`;
+                }%;`;
             } else {
-                bars[j].style = `background: ${GREEN}; height: ${a[j]}vh;`;
+                bars[j].style = `background: ${GREEN}; height: ${a[j]}%;`;
                 bars[j + 1].style = `background: ${GREEN}; height: ${
                     a[j + 1]
-                }vh;`;
+                }%;`;
                 await Sleep(speed / 4);
-                bars[j].style = `background: ${BLUE}; height: ${a[j]}vh;`;
+                bars[j].style = `background: ${BLUE}; height: ${a[j]}%;`;
                 bars[j + 1].style = `background: ${BLUE}; height: ${
                     a[j + 1]
-                }vh;`;
+                }%;`;
             }
         }
         bars[ARRAY_SIZE - i - 1].style = `background: ${PURPLE}; height: ${
             a[ARRAY_SIZE - i - 1]
-        }vh;`;
+        }%;`;
     }
-    bars[0].style = `background: ${PURPLE}; height: ${a[0]}vh;`;
+    bars[0].style = `background: ${PURPLE}; height: ${a[0]}%;`;
 };
 
 // Merge Sort (Not Working, To be Fixed)
@@ -226,16 +223,16 @@ async function InsertionSort() {
     for (i = 0; i < ARRAY_SIZE; i++) {
         key = a[i];
         j = i - 1;
-        bars[i].style = `background: ${RED}; height: ${a[i]}vh;`;
+        bars[i].style = `background: ${RED}; height: ${a[i]}%;`;
         await Sleep(speed * 5);
         while (j >= 0 && a[j] > key) {
-            bars[j].style = `background: ${RED}; height: ${a[j]}vh;`;
+            bars[j].style = `background: ${RED}; height: ${a[j]}%;`;
             Sleep(100);
-            bars[j].style = `background: ${BLUE}; height: ${a[j]}vh;`;
+            bars[j].style = `background: ${BLUE}; height: ${a[j]}%;`;
             a[j + 1] = a[j];
             j--;
         }
-        bars[j + 1].style = `background: ${GREEN}; height: ${a[j + 1]}vh;`;
+        bars[j + 1].style = `background: ${GREEN}; height: ${a[j + 1]}%;`;
         await Sleep(speed * 5);
         a[j + 1] = key;
         Render(BLUE);
@@ -247,27 +244,27 @@ async function InsertionSort() {
 const partition = async (low, high) => {
     const pivot = a[high];
     i = low - 1;
-    bars[i + 1].style = `background: ${RED}; height: ${a[i + 1]}vh;`;
+    bars[i + 1].style = `background: ${RED}; height: ${a[i + 1]}%;`;
 
     for (j = low; j < high; j++) {
-        bars[j].style = `background: ${RED}; height: ${a[j]}vh;`;
+        bars[j].style = `background: ${RED}; height: ${a[j]}%;`;
         await Sleep(speed);
         if (a[j] < pivot && j != i) {
             i++;
-            bars[i].style = `background: ${GREEN}; height: ${a[i]}vh;`;
-            bars[j].style = `background: ${GREEN}; height: ${a[j]}vh;`;
+            bars[i].style = `background: ${GREEN}; height: ${a[i]}%;`;
+            bars[j].style = `background: ${GREEN}; height: ${a[j]}%;`;
             await Sleep(speed * 3);
             const temp = a[i];
             a[i] = a[j];
             a[j] = temp;
-            bars[i].style = `background: ${GREEN}; height: ${a[i]}vh;`;
-            bars[j].style = `background: ${GREEN}; height: ${a[j]}vh;`;
+            bars[i].style = `background: ${GREEN}; height: ${a[i]}%;`;
+            bars[j].style = `background: ${GREEN}; height: ${a[j]}%;`;
             await Sleep(speed * 3);
-            bars[i].style = `background: ${BLUE}; height: ${a[i]}vh;`;
-            bars[i + 1].style = `background: ${RED}; height: ${a[i]}vh;`;
-            bars[j].style = `background: ${BLUE}; height: ${a[j]}vh;`;
+            bars[i].style = `background: ${BLUE}; height: ${a[i]}%;`;
+            bars[i + 1].style = `background: ${RED}; height: ${a[i]}%;`;
+            bars[j].style = `background: ${BLUE}; height: ${a[j]}%;`;
         }
-        bars[j].style = `background: ${BLUE}; height: ${a[j]}vh;`;
+        bars[j].style = `background: ${BLUE}; height: ${a[j]}%;`;
     }
     const temp = a[j];
     a[j] = a[i + 1];
@@ -280,17 +277,15 @@ const QuickSort = async (low, high) => {
     if (low < high) {
         for (i = 0; i < 4; i++) {
             await Sleep(speed * 4);
-            bars[
-                low
-            ].style = `background: ${ALERT_COLOR}; height: ${a[low]}vh;`;
+            bars[low].style = `background: ${ALERT_COLOR}; height: ${a[low]}%;`;
             bars[
                 high
-            ].style = `background: ${ALERT_COLOR}; height: ${a[high]}vh;`;
+            ].style = `background: ${ALERT_COLOR}; height: ${a[high]}%;`;
             await Sleep(speed * 4);
-            bars[low].style = `background: ${BLUE}; height: ${a[low]}vh;`;
-            bars[high].style = `background: ${BLUE}; height: ${a[high]}vh;`;
+            bars[low].style = `background: ${BLUE}; height: ${a[low]}%;`;
+            bars[high].style = `background: ${BLUE}; height: ${a[high]}%;`;
         }
-        bars[high].style = `background: ${PURPLE}; height: ${a[high]}vh;`;
+        bars[high].style = `background: ${PURPLE}; height: ${a[high]}%;`;
         const pi = await partition(low, high);
         Render(BLUE);
         await QuickSort(low, pi - 1);
@@ -331,9 +326,12 @@ randomizeBtn.addEventListener("click", e => {
 
 sizeSlider.oninput = function() {
     ChangeArraySize(this.value);
-    console.log(this.value);
     Shuffle(a);
     Render(BLUE);
+};
+
+speedSlider.oninput = function() {
+    speed = 510 - this.value;
 };
 
 selSortBtn.addEventListener("click", () => {

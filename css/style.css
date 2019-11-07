@@ -8,7 +8,7 @@ body {
 header {
     background: rgb(6, 6, 56);
     display: flex;
-    height: 6vh;
+    height: 10%;
     text-align: center;
     color: #ffffff;
 }
@@ -41,13 +41,14 @@ header .options-us:hover {
 }
 
 .slidecontainer {
-    position: relative;
     width: 10%; /* Width of the outside container */
-    top: 25%;
+    padding-right: 25px;
 }
 
 /* The slider itself */
 .slider {
+    position: relative;
+    top: 25%;
     display: inline-block;
     -webkit-appearance: none; /* Override default CSS styles */
     appearance: none;
@@ -84,9 +85,9 @@ header .options-us:hover {
 }
 
 main {
-    flex-grow: 1;
+    /* flex-grow: 1; */
     text-align: center;
-    height: 80vh;
+    height: 84%;
 }
 
 main #bars-container {
@@ -114,5 +115,5 @@ main #bars-container .bar:nth-child(20) {
 footer {
     color: #888888;
     border-top: 1px solid #d8d8d8;
-    margin-bottom: -45rem;
+    margin-top: 42.5%;
 }
