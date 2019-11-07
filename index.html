@@ -9,13 +9,28 @@
     </head>
     <body>
         <header>
-            <span id="randomize">Randomize/Reset</span>
-            <span id="sel-sort" class="options-us">Selection Sort</span>
-            <span id="bubble-sort" class="options-us">Bubble Sort</span>
-            <span id="merge-sort" class="options-us" hidden>Merge Sort</span>
-            <span id="insert-sort" class="options-us">Insertion Sort</span>
-            <span id="quick-sort" class="options-us">Quick Sort</span>
-            <span id="sort">Sort</span>
+            <span id="randomize" class="button">Randomize/Reset</span>
+            <span>Array Size: </span>
+            <div class="slidecontainer">
+                <input
+                    type="range"
+                    min="10"
+                    max="200"
+                    value="50"
+                    class="slider"
+                    id="size-slider"
+                />
+            </div>
+            <span id="sel-sort" class="options-us button">Selection Sort</span>
+            <span id="bubble-sort" class="options-us button">Bubble Sort</span>
+            <span id="merge-sort" class="options-us button" hidden
+                >Merge Sort</span
+            >
+            <span id="insert-sort" class="options-us button"
+                >Insertion Sort</span
+            >
+            <span id="quick-sort" class="options-us button">Quick Sort</span>
+            <span id="sort" class="button">Sort</span>
         </header>
         <main>
             <div id="bars-container"></div>

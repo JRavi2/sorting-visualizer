@@ -4,6 +4,9 @@ const barsContainer = document.querySelector("#bars-container");
 const randomizeBtn = document.querySelector("#randomize");
 const sortBtn = document.querySelector("#sort");
 
+// Sliders
+const sizeSlider = document.querySelector("#size-slider");
+
 // Algorithm Selectors
 const selSortBtn = document.querySelector("#sel-sort");
 const bubbleSortBtn = document.querySelector("#bubble-sort");
@@ -17,8 +20,9 @@ const PURPLE = "rgb(199, 38, 92)";
 const GREEN = "green";
 const RED = "rgb(243, 59, 59)";
 const ALERT_COLOR = "black";
-const ARRAY_SIZE = 50;
+var ARRAY_SIZE = 50;
 var algo = "select";
+var speed = 1000;
 
 // Initialize the array
 for (var a = [], i = 0; i < ARRAY_SIZE; ++i) {
@@ -27,7 +31,28 @@ for (var a = [], i = 0; i < ARRAY_SIZE; ++i) {
     bar.classList.add("bar");
     barsContainer.appendChild(bar);
 }
-const bars = document.querySelectorAll(".bar");
+var bars = document.querySelectorAll(".bar");
+
+// Change Array Size
+const ChangeArraySize = newSize => {
+    if (newSize < ARRAY_SIZE) {
+        for (i = 0; i < ARRAY_SIZE - newSize; i++) {
+            console.log(bars[i].parentElement);
+            barsContainer.removeChild(bars[i]);
+            bars[i].remove();
+            //Render();
+        }
+    } else if (newSize > ARRAY_SIZE) {
+        for (i = 0; i < newSize - ARRAY_SIZE; i++) {
+            a[i] = i;
+            const bar = document.createElement("div");
+            bar.classList.add("bar");
+            barsContainer.appendChild(bar);
+            bars = document.querySelectorAll(".bar");
+        }
+    }
+    ARRAY_SIZE = newSize;
+};
 
 // Utitlity Timer Function
 const Sleep = ms => {
@@ -46,7 +71,7 @@ const DeselectAll = () => {
 // Randomize the array
 const Shuffle = array => {
     for (i = 0; i < ARRAY_SIZE; i++) {
-        array[i] = Math.floor(Math.random() * (ARRAY_SIZE - 1 + 1) + 1);
+        array[i] = Math.floor(Math.random() * (90 - 1 + 1) + 1);
     }
     return array;
 };
@@ -289,6 +314,13 @@ randomizeBtn.addEventListener("click", e => {
     Shuffle(a);
     Render(BLUE);
 });
+
+sizeSlider.oninput = function() {
+    ChangeArraySize(this.value);
+    console.log(this.value);
+    Shuffle(a);
+    Render(BLUE);
+};
 
 selSortBtn.addEventListener("click", () => {
     algo = "select";
