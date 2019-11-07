@@ -22,7 +22,7 @@ const RED = "rgb(243, 59, 59)";
 const ALERT_COLOR = "black";
 var ARRAY_SIZE = 50;
 var algo = "select";
-var speed = 1000;
+var speed = 100;
 
 // Initialize the array
 for (var a = [], i = 0; i < ARRAY_SIZE; ++i) {
@@ -35,26 +35,40 @@ var bars = document.querySelectorAll(".bar");
 
 // Change Array Size
 const ChangeArraySize = newSize => {
-    if (newSize < ARRAY_SIZE) {
-        for (i = 0; i < ARRAY_SIZE - newSize; i++) {
-            console.log(bars[i].parentElement);
-            barsContainer.removeChild(bars[i]);
-            bars[i].remove();
-            //Render();
-        }
-    } else if (newSize > ARRAY_SIZE) {
-        for (i = 0; i < newSize - ARRAY_SIZE; i++) {
-            a[i] = i;
-            const bar = document.createElement("div");
-            bar.classList.add("bar");
-            barsContainer.appendChild(bar);
-            bars = document.querySelectorAll(".bar");
-        }
+    // Alternate Concept which may be a little faster but is not working (Commented out part)
+    // if (newSize < ARRAY_SIZE) {
+    //     for (i = ARRAY_SIZE; i > ARRAY_SIZE - newSize; i--) {
+    //         console.log(bars[i].parentElement);
+    //         barsContainer.removeChild(bars[i]);
+    //         bars[i].remove();
+    //         //Render();
+    //     }
+    // } else if (newSize > ARRAY_SIZE) {
+    //     for (i = 0; i < newSize - ARRAY_SIZE; i++) {
+    //         a[ARRAY_SIZE + i] = i;
+    //         const bar = document.createElement("div");
+    //         bar.classList.add("bar");
+    //         barsContainer.appendChild(bar);
+    //         bars = document.querySelectorAll(".bar");
+    //     }
+    // }
+
+    // Simpler Method which is a bit slower
+    // Remove all the bars
+    for (i = ARRAY_SIZE - 1; i >= 0; i--) barsContainer.removeChild(bars[i]);
+
+    // Add the required no. of bars
+    for (i = 0; i < newSize; i++) {
+        a[i] = i;
+        const bar = document.createElement("div");
+        bar.classList.add("bar");
+        barsContainer.appendChild(bar);
     }
+    bars = document.querySelectorAll(".bar");
     ARRAY_SIZE = newSize;
 };
 
-// Utitlity Timer Function
+// Utitlity Sleep Function
 const Sleep = ms => {
     return new Promise(res => setTimeout(res, ms));
 };
@@ -99,7 +113,7 @@ async function SelectionSort() {
         var temp = a[j];
         a[j] = a[min_index];
         a[min_index] = temp;
-        await Sleep(100);
+        await Sleep(speed);
         bars[
             min_index
         ].style = `background: ${BLUE}; height: ${a[min_index]}vh;`;
@@ -119,7 +133,7 @@ const BubbleSort = async () => {
                 bars[j + 1].style = `background: ${RED}; height: ${
                     a[j + 1]
                 }vh;`;
-                await Sleep(25);
+                await Sleep(speed / 4);
                 bars[j].style = `background: ${BLUE}; height: ${a[j]}vh;`;
                 bars[j + 1].style = `background: ${BLUE}; height: ${
                     a[j + 1]
@@ -129,7 +143,7 @@ const BubbleSort = async () => {
                 bars[j + 1].style = `background: ${GREEN}; height: ${
                     a[j + 1]
                 }vh;`;
-                await Sleep(25);
+                await Sleep(speed / 4);
                 bars[j].style = `background: ${BLUE}; height: ${a[j]}vh;`;
                 bars[j + 1].style = `background: ${BLUE}; height: ${
                     a[j + 1]
@@ -213,7 +227,7 @@ async function InsertionSort() {
         key = a[i];
         j = i - 1;
         bars[i].style = `background: ${RED}; height: ${a[i]}vh;`;
-        await Sleep(500);
+        await Sleep(speed * 5);
         while (j >= 0 && a[j] > key) {
             bars[j].style = `background: ${RED}; height: ${a[j]}vh;`;
             Sleep(100);
@@ -222,7 +236,7 @@ async function InsertionSort() {
             j--;
         }
         bars[j + 1].style = `background: ${GREEN}; height: ${a[j + 1]}vh;`;
-        await Sleep(500);
+        await Sleep(speed * 5);
         a[j + 1] = key;
         Render(BLUE);
     }
@@ -237,18 +251,18 @@ const partition = async (low, high) => {
 
     for (j = low; j < high; j++) {
         bars[j].style = `background: ${RED}; height: ${a[j]}vh;`;
-        await Sleep(100);
+        await Sleep(speed);
         if (a[j] < pivot && j != i) {
             i++;
             bars[i].style = `background: ${GREEN}; height: ${a[i]}vh;`;
             bars[j].style = `background: ${GREEN}; height: ${a[j]}vh;`;
-            await Sleep(300);
+            await Sleep(speed * 3);
             const temp = a[i];
             a[i] = a[j];
             a[j] = temp;
             bars[i].style = `background: ${GREEN}; height: ${a[i]}vh;`;
             bars[j].style = `background: ${GREEN}; height: ${a[j]}vh;`;
-            await Sleep(300);
+            await Sleep(speed * 3);
             bars[i].style = `background: ${BLUE}; height: ${a[i]}vh;`;
             bars[i + 1].style = `background: ${RED}; height: ${a[i]}vh;`;
             bars[j].style = `background: ${BLUE}; height: ${a[j]}vh;`;
@@ -265,14 +279,14 @@ const partition = async (low, high) => {
 const QuickSort = async (low, high) => {
     if (low < high) {
         for (i = 0; i < 4; i++) {
-            await Sleep(400);
+            await Sleep(speed * 4);
             bars[
                 low
             ].style = `background: ${ALERT_COLOR}; height: ${a[low]}vh;`;
             bars[
                 high
             ].style = `background: ${ALERT_COLOR}; height: ${a[high]}vh;`;
-            await Sleep(400);
+            await Sleep(speed * 4);
             bars[low].style = `background: ${BLUE}; height: ${a[low]}vh;`;
             bars[high].style = `background: ${BLUE}; height: ${a[high]}vh;`;
         }
