@@ -15,12 +15,14 @@ const mergeSortBtn = document.querySelector("#merge-sort");
 const insertSortBtn = document.querySelector("#insert-sort");
 const quickSortBtn = document.querySelector("#quick-sort");
 
-// Controller Variables
 const BLUE = "rgb(74, 74, 252)";
 const PURPLE = "rgb(199, 38, 92)";
 const GREEN = "green";
 const RED = "rgb(243, 59, 59)";
+const YELLOW = "yellow";
 const ALERT_COLOR = "black";
+
+// Controller Variables
 var ARRAY_SIZE = 50;
 var algo = "select";
 var speed = 100;
@@ -101,22 +103,54 @@ const Render = color => {
 
 // Selection Sort
 async function SelectionSort() {
-    for (j = 0; j < ARRAY_SIZE; j++) {
-        var min_index = j;
-        for (k = j + 1; k < ARRAY_SIZE; k++)
-            if (a[k] < a[min_index]) min_index = k;
+    for (i = 0; i < ARRAY_SIZE; i++) {
+        var min_index = i;
+        bars[i].style = `background: ${YELLOW}; height: ${a[i]}%;`;
+        await Sleep(speed * 2);
+        for (j = i + 1; j < ARRAY_SIZE; j++) {
+            bars[j].style = `background: ${RED}; height: ${a[j]}%;`;
+            if (a[j] < a[min_index]) {
+                if (min_index != i)
+                    bars[
+                        min_index
+                    ].style = `background: ${BLUE}; height: ${a[min_index]}%;`;
 
-        bars[j].style = `background: ${RED}; height: ${a[j]}%;`;
-        bars[min_index].style = `background: ${RED}; height: ${a[min_index]}%;`;
+                min_index = j;
 
-        var temp = a[j];
-        a[j] = a[min_index];
-        a[min_index] = temp;
+                bars[
+                    min_index
+                ].style = `background: ${YELLOW}; height: ${a[min_index]}%;`;
+
+                await Sleep(speed / 2);
+            } else {
+                await Sleep(speed);
+                bars[j].style = `background: ${BLUE}; height: ${a[j]}%;`;
+            }
+        }
         await Sleep(speed);
+
+        bars[
+            min_index
+        ].style = `background: ${GREEN}; height: ${a[min_index]}%;`;
+        bars[i].style = `background: ${GREEN}; height: ${a[i]}%;`;
+
+        await Sleep(speed * 2);
+
+        var temp = a[i];
+        a[i] = a[min_index];
+        a[min_index] = temp;
+
+        bars[
+            min_index
+        ].style = `background: ${GREEN}; height: ${a[min_index]}%;`;
+        bars[i].style = `background: ${GREEN}; height: ${a[i]}%;`;
+
+        await Sleep(speed * 2);
+
         bars[
             min_index
         ].style = `background: ${BLUE}; height: ${a[min_index]}%;`;
-        bars[j].style = `background: ${PURPLE}; height: ${a[j]}%;`;
+        bars[i].style = `background: ${PURPLE}; height: ${a[i]}%;`;
     }
 }
 
@@ -124,23 +158,35 @@ async function SelectionSort() {
 const BubbleSort = async () => {
     for (i = 0; i < ARRAY_SIZE - 1; i++) {
         for (j = 0; j < ARRAY_SIZE - i - 1; j++) {
-            if (a[j] < a[j + 1]) {
+            if (a[j] > a[j + 1]) {
+                bars[j].style = `background: ${GREEN}; height: ${a[j]}%;`;
+                bars[j + 1].style = `background: ${GREEN}; height: ${
+                    a[j + 1]
+                }%;`;
+
+                await Sleep(speed / 2);
+
                 const temp = a[j];
                 a[j] = a[j + 1];
                 a[j + 1] = temp;
-                bars[j].style = `background: ${RED}; height: ${a[j]}%;`;
-                bars[j + 1].style = `background: ${RED}; height: ${a[j + 1]}%;`;
-                await Sleep(speed / 4);
+
+                bars[j].style = `background: ${GREEN}; height: ${a[j]}%;`;
+                bars[j + 1].style = `background: ${GREEN}; height: ${
+                    a[j + 1]
+                }%;`;
+
+                await Sleep(speed / 2);
+
                 bars[j].style = `background: ${BLUE}; height: ${a[j]}%;`;
                 bars[j + 1].style = `background: ${BLUE}; height: ${
                     a[j + 1]
                 }%;`;
             } else {
-                bars[j].style = `background: ${GREEN}; height: ${a[j]}%;`;
-                bars[j + 1].style = `background: ${GREEN}; height: ${
-                    a[j + 1]
-                }%;`;
+                bars[j].style = `background: ${RED}; height: ${a[j]}%;`;
+                bars[j + 1].style = `background: ${RED}; height: ${a[j + 1]}%;`;
+
                 await Sleep(speed / 4);
+
                 bars[j].style = `background: ${BLUE}; height: ${a[j]}%;`;
                 bars[j + 1].style = `background: ${BLUE}; height: ${
                     a[j + 1]
