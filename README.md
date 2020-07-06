@@ -12,6 +12,6 @@ A website that visualizes a bunch of different soritng algorithms, like Selectio
 
 ## Demo
 
-You can either visit the live website at : [Sorting Visualizer](https://r-sv.netlify.app/), or you can clone this repository and open `index.html` using your preferred browser.
+You can either visit the live website [here](https://r-sv.netlify.app/), or you can clone this repository and open `index.html` using your preferred browser.
 
 *Note - The webpage has only been tested on Mozilla Firefox and Google Chrome*
