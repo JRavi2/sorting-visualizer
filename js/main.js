@@ -200,69 +200,6 @@ const BubbleSort = async () => {
     bars[0].style = `background: ${PURPLE}; height: ${a[0]}%;`;
 };
 
-// Merge Sort (Not Working, To be Fixed)
-function Merge(l, m, r) {
-    var i, j, k;
-    var n1 = m - l + 1;
-    var n2 = r - m;
-
-    /* create temp arrays */
-    var L = [],
-        R = [];
-
-    /* Copy data to temp arrays L[] and R[] */
-    for (i = 0; i < n1; i++) L[i] = a[l + i];
-    for (j = 0; j < n2; j++) R[j] = a[m + 1 + j];
-
-    /* Merge the temp arrays back into arr[l..r]*/
-    i = 0; // Initial index of first subarray
-    j = 0; // Initial index of second subarray
-    k = l; // Initial index of merged subarray
-    while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            a[k] = L[i];
-            i++;
-        } else {
-            a[k] = R[j];
-            j++;
-        }
-        k++;
-    }
-
-    /* Copy the remaining elements of L[], if there
-       are any */
-    while (i < n1) {
-        a[k] = L[i];
-        i++;
-        k++;
-    }
-
-    /* Copy the remaining elements of R[], if there
-       are any */
-    while (j < n2) {
-        a[k] = R[j];
-        j++;
-        k++;
-    }
-}
-
-/* l is for left index and r is right index of the
-   sub-array of arr to be sorted */
-function MergeSort(l, r) {
-    if (l < r) {
-        // Same as (l+r)/2, but avoids overflow for
-        // large l and h
-        var m = l + (r - l) / 2;
-
-        // Sort first and second halves
-        MergeSort(l, m);
-        MergeSort(m + 1, r);
-
-        Merge(l, m, r);
-        console.log(a);
-    }
-}
-
 // Insertion Sort
 async function InsertionSort() {
     var key;
