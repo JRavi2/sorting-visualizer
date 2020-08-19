@@ -8,7 +8,7 @@ A website that visualizes a bunch of different soritng algorithms, like Selectio
 
 - Visualization of 4 Sorting Algorithms (Selection Sort, Bubble Sort, Insertion Sort, Quick Sort), with more to come
 - A Slider to change the size of the array to be sorted
-- A Slider to change the speed of sorting
+- A Slider to change the sorting speed
 
 ## Demo
 
